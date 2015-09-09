@@ -26,7 +26,7 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Task task = taskService.retrieveTask(req.getParameter("action"));
+        Task task = taskService.retrieveTask(req.getParameter(Task.PARAM_ACTION));
         try {
             if (task != null) {
                 task.run(buildParameters(req));

@@ -14,6 +14,7 @@ import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.common.collect.Maps;
 
 public class TaskService {
+    private static final String TASKS_URL = "/tasks/%s";
     private Map<String, Task> tasks;
 
     public TaskService() {
@@ -26,7 +27,7 @@ public class TaskService {
 
     public void enqueueTask(String action, Map<String, String> parameters) {
 
-        TaskOptions options = withUrl(String.format("/tasks/%s", action.toLowerCase())).taskName(
+        TaskOptions options = withUrl(String.format(TASKS_URL, action.toLowerCase())).taskName(
                 action + UUID.randomUUID().toString()).method(TaskOptions.Method.POST);
 
         Logger log = Logger.getAnonymousLogger();

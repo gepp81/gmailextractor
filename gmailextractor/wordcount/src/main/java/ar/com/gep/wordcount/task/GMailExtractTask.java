@@ -5,13 +5,13 @@ import java.util.logging.Logger;
 
 public class GMailExtractTask extends Task {
 
-    public static final String ACTION = "getemails";
+    public static final String ACTION_VALUE = "getemails";
 
     private static final Logger LOGGER = Logger.getLogger(GMailExtractTask.class.getSimpleName());
 
     @Override
     public String getAction() {
-        return ACTION;
+        return ACTION_VALUE;
     }
 
     @Override

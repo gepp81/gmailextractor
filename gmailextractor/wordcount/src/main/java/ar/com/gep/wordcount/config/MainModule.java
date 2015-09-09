@@ -7,11 +7,14 @@ import ar.com.gep.wordcount.task.GMailExtractTask;
 import com.google.inject.servlet.ServletModule;
 
 public class MainModule extends ServletModule {
+    private static final String TASKS = "/tasks/";
+    private static final String CRONS = "/crons";
+
     @Override
     protected void configureServlets() {
-        serve("/crons").with(CronServlet.class);
+        serve(CRONS).with(CronServlet.class);
 
-        serve("/tasks/".concat(GMailExtractTask.ACTION)).with(TaskServlet.class);
+        serve(TASKS.concat(GMailExtractTask.ACTION_VALUE)).with(TaskServlet.class);
 
     }
 
