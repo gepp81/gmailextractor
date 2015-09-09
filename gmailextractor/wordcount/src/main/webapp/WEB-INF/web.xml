@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- GUICE CONFIGURATION - START -->
+	<filter>
+		<filter-name>guiceFilter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>guiceFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>ar.com.gep.wordcount.config.SetupListener</listener-class>
+	</listener>
+	<!-- GUICE CONFIGURATION - END -->
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>crons</web-resource-name>
+			<url-pattern>/crons/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>all</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>tasks</web-resource-name>
+			<url-pattern>/tasks/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<!-- servlet of MR jobs -->
+	<servlet>
+		<servlet-name>mapreduce</servlet-name>
+		<servlet-class>com.google.appengine.tools.mapreduce.MapReduceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mapreduce</servlet-name>
+		<url-pattern>/mapreduce/*</url-pattern>
+	</servlet-mapping>
+	<!-- servlet of pipelines -->
+	<servlet>
+		<servlet-name>pipeline</servlet-name>
+		<servlet-class>
+			com.google.appengine.tools.pipeline.impl.servlets.PipelineServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>pipeline</servlet-name>
+		<url-pattern>/_ah/pipeline/*</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>ObjectifyFilter</filter-name>
+		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ObjectifyFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+</web-app>
