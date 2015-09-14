@@ -8,7 +8,7 @@ public class SetupListener extends GuiceServletContextListener {
 
     @Override
     protected Injector getInjector() {
-      return Guice.createInjector(new MainModule(), new TaskModule());
+        return Guice.createInjector(new MainModule(), new TaskModule());
     }
-    
+
 }

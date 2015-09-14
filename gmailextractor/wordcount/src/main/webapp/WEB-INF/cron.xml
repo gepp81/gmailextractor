@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
 	<cron>
-		<url>/crons?action=getemails</url>
-		<description>Recupera los correos de los usuarios</description>
+		<url>/crons?action=getrss</url>
+		<description>Recupera los rss</description>
 		<schedule>every day 12:00</schedule>
 		<timezone>America/Argentina/Buenos_Aires</timezone>
 	</cron>
