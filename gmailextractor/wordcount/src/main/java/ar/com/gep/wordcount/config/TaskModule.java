@@ -17,8 +17,8 @@ public class TaskModule extends AbstractModule {
     @Singleton
     public TaskService provideTasksService() {
         TaskService taskService = new TaskService();
-        taskService.registerTask(new GMailExtractTask());
-        taskService.registerTask(new RSSExtractTask());
+        taskService.registerTask(new GMailExtractTask(taskService));
+        taskService.registerTask(new RSSExtractTask(taskService));
         return taskService;
     }
 

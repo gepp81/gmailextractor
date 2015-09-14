@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import ar.com.gep.wordcount.config.TaskService;
 import ar.com.gep.wordcount.rss.Channel;
 import ar.com.gep.wordcount.rss.Entry;
 import ar.com.gep.wordcount.rss.RSSEntityDAO;
@@ -21,6 +22,10 @@ import com.rometools.rome.io.XmlReader;
 public class RSSExtractTask extends Task {
 
     public static final String ACTION = "getrss";
+
+    public RSSExtractTask(TaskService taskService) {
+        super(taskService);
+    }
 
     @Override
     public String getAction() {

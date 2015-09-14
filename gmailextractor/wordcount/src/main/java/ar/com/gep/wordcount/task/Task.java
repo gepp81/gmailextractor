@@ -9,7 +9,6 @@ import com.google.inject.Inject;
 
 public abstract class Task {
 
-    @Inject
     private TaskService taskService;
 
     public static final String PARAM_ACTION = "action";
@@ -17,11 +16,15 @@ public abstract class Task {
 
     protected static final String TOKEN = "token";
 
+    public Task(TaskService taskService) {
+        this.taskService = taskService;
+    }
+
     public abstract String getAction();
 
     public abstract void run(final Map<String, String> arguments) throws IOException;
 
-    protected void star(final String action, final Map<String, String> parameters) {
-        taskService.enqueueTask(action, parameters);
+    protected void star(final String action, final Map<String, String> arguments) {
+        taskService.enqueueTask(action, arguments);
     }
 }
