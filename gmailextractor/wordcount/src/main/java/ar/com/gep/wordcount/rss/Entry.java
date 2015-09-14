@@ -21,7 +21,7 @@ public class Entry {
     private String data;
 
     public Entry(String date, String channel, String title, String data) {
-        this.id = channel.concat("-").concat(data).concat("-").concat(title);
+        this.id = channel.concat("-").concat(date).concat("-").concat(title);
         this.channel = channel;
         this.date = date;
         this.data = data;
