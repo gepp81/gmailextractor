@@ -5,8 +5,6 @@ import java.util.Map;
 
 import ar.com.gep.wordcount.config.TaskService;
 
-import com.google.inject.Inject;
-
 public abstract class Task {
 
     private TaskService taskService;
@@ -24,7 +22,7 @@ public abstract class Task {
 
     public abstract void run(final Map<String, String> arguments) throws IOException;
 
-    protected void star(final String action, final Map<String, String> arguments) {
+    protected void start(final String action, final Map<String, String> arguments) {
         taskService.enqueueTask(action, arguments);
     }
 }

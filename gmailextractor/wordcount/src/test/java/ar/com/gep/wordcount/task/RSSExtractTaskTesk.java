@@ -1,20 +1,25 @@
-package ar.com.gep.wordcount.rss;
+package ar.com.gep.wordcount.task;
 
 import static ar.com.gep.wordcount.ds.DataStoreFactory.ofy;
 
-import org.junit.Assert;
+import java.io.IOException;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.QueryResultList;
+import ar.com.gep.wordcount.config.TaskService;
+import ar.com.gep.wordcount.rss.Channel;
+import ar.com.gep.wordcount.rss.RSSEntityDAO;
+
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.google.common.collect.Maps;
 
 @RunWith(JUnit4.class)
-public class RSSEntityDAOTest {
+public class RSSExtractTaskTesk {
 
     LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
     RSSEntityDAO dao = new RSSEntityDAO();
@@ -41,9 +46,10 @@ public class RSSEntityDAOTest {
     }
 
     @Test
-    public void testGetChannel() {
-        QueryResultList<Entity> channels = RSSEntityDAO.getChannels(null);
-        Assert.assertTrue(channels.size() > 0);
+    public void testGetChannel() throws IOException {
+        RSSExtractTask task = new RSSExtractTask(new TaskService());
+        Map<String, String> arguments = Maps.newHashMap();
+        task.run(arguments);
     }
 
 }

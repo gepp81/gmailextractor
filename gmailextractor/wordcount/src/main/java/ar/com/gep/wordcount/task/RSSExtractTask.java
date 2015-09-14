@@ -12,7 +12,8 @@ import ar.com.gep.wordcount.rss.Channel;
 import ar.com.gep.wordcount.rss.Entry;
 import ar.com.gep.wordcount.rss.RSSEntityDAO;
 
-import com.google.appengine.api.datastore.QueryResultIterator;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.QueryResultList;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
@@ -34,19 +35,16 @@ public class RSSExtractTask extends Task {
 
     @Override
     public void run(Map<String, String> arguments) throws IOException {
-        QueryResultIterator<Channel> query = RSSEntityDAO.getChannels(arguments.get(TOKEN));
+        QueryResultList<Entity> query = RSSEntityDAO.getChannels(arguments.get(TOKEN));
 
-        Channel channel = query.next();
-
-        Logger.getAnonymousLogger().severe("Old token: " + arguments.get(TOKEN));
-        Logger.getAnonymousLogger().severe("Next token: " + query.getCursor().toWebSafeString());
+        Channel channel = getChannel(query);
 
         if (!query.getCursor().toWebSafeString().isEmpty()) {
             arguments.put(TOKEN, query.getCursor().toWebSafeString());
-            this.star(getAction(), arguments);
+            this.start(getAction(), arguments);
         }
 
-        Logger.getAnonymousLogger().severe("Canal: ".concat(channel.getName()));
+        Logger.getAnonymousLogger().info("Canal: ".concat(channel.getName()));
         try {
             SyndFeedInput input = new SyndFeedInput();
 
@@ -64,6 +62,14 @@ public class RSSExtractTask extends Task {
             Logger.getAnonymousLogger().severe("Dont get data from: " + channel.getId());
         }
 
+    }
+
+    private Channel getChannel(QueryResultList<Entity> query) {
+        Entity entity = query.get(0);
+        Channel channel = new Channel();
+        channel.setId((String) entity.getProperty("id"));
+        channel.setName((String) entity.getProperty("name"));
+        return channel;
     }
 
 }
