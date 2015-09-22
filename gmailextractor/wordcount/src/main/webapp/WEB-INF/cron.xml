@@ -14,7 +14,7 @@
 	</cron>
 	<cron>
 		<url>/crons?action=countwords</url>
-		<description>Cuentas palabras del día anterior</description>
+		<description>Cuentas palabras del da anterior</description>
 		<schedule>every day 17:00</schedule>
 		<timezone>America/Argentina/Buenos_Aires</timezone>
 	</cron>	

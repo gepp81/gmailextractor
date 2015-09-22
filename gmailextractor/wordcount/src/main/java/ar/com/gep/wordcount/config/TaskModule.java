@@ -1,6 +1,5 @@
 package ar.com.gep.wordcount.config;
 
-import ar.com.gep.wordcount.gmail.GMailExtractTask;
 import ar.com.gep.wordcount.task.CleanerTask;
 import ar.com.gep.wordcount.task.RSSExtractTask;
 import ar.com.gep.wordcount.task.mr.WordCountMR;
@@ -19,7 +18,6 @@ public class TaskModule extends AbstractModule {
     @Singleton
     public TaskService provideTasksService() {
         TaskService taskService = new TaskService();
-        taskService.registerTask(new GMailExtractTask(taskService));
         taskService.registerTask(new RSSExtractTask(taskService));
         taskService.registerTask(new CleanerTask(taskService));
         taskService.registerTask(new WordCountMR(taskService));

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.joda.time.DateTime;
 
 import ar.com.gep.wordcount.config.TaskService;
-import ar.com.gep.wordcount.gmail.GMailExtractTask;
 import ar.com.gep.wordcount.task.CleanerTask;
 import ar.com.gep.wordcount.task.RSSExtractTask;
 import ar.com.gep.wordcount.task.Task;
@@ -42,9 +41,7 @@ public class CronServlet extends HttpServlet {
 
         taskService.enqueueTask(action, parameters);
 
-        if (action.equals(GMailExtractTask.ACTION)) {
-            LOGGER.info("Ejecutando extraccion de mails");
-        } else if (action.equals(RSSExtractTask.ACTION)) {
+        if (action.equals(RSSExtractTask.ACTION)) {
             LOGGER.info("Ejecutando extraccion de rss");
         } else if (action.equals(CleanerTask.ACTION)) {
             LOGGER.info("Ejecutando limpieza de HTML");
