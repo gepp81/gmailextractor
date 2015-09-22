@@ -11,7 +11,7 @@ import com.google.appengine.api.datastore.QueryResultList;
 
 public final class RSSEntityDAO {
 
-    private static final String CHANNEL = "Channel";
+    private static final String CHANNEL = "ChannelEntity";
 
     public static QueryResultList<Entity> getChannels(String token) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(1);

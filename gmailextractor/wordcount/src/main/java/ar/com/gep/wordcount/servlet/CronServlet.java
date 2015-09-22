@@ -13,8 +13,10 @@ import org.joda.time.DateTime;
 
 import ar.com.gep.wordcount.config.TaskService;
 import ar.com.gep.wordcount.gmail.GMailExtractTask;
+import ar.com.gep.wordcount.task.CleanerTask;
 import ar.com.gep.wordcount.task.RSSExtractTask;
 import ar.com.gep.wordcount.task.Task;
+import ar.com.gep.wordcount.task.mr.WordCountMR;
 
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
@@ -38,13 +40,16 @@ public class CronServlet extends HttpServlet {
         parameters.put(Task.PARAM_TODAY, DateTime.now().toString("yyyyMMdd"));
         parameters.put(Task.PARAM_ACTION, action);
 
+        taskService.enqueueTask(action, parameters);
+
         if (action.equals(GMailExtractTask.ACTION)) {
             LOGGER.info("Ejecutando extraccion de mails");
-            taskService.enqueueTask(action, parameters);
-        }
-        if (action.equals(RSSExtractTask.ACTION)) {
+        } else if (action.equals(RSSExtractTask.ACTION)) {
             LOGGER.info("Ejecutando extraccion de rss");
-            taskService.enqueueTask(action, parameters);
+        } else if (action.equals(CleanerTask.ACTION)) {
+            LOGGER.info("Ejecutando limpieza de HTML");
+        } else if (action.equals(WordCountMR.ACTION)) {
+            LOGGER.info("Contando palabras");
         }
     }
 

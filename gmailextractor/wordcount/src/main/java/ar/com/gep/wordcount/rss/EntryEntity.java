@@ -5,7 +5,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class Entry {
+public class EntryEntity implements ar.com.gep.wordcount.ds.Entity{
 
     @Id
     private String id;
@@ -20,7 +20,11 @@ public class Entry {
 
     private String data;
 
-    public Entry(String date, String channel, String title, String data) {
+    public EntryEntity() {
+        // due objectify
+    }
+
+    public EntryEntity(String date, String channel, String title, String data) {
         this.id = channel.concat("-").concat(date).concat("-").concat(title);
         this.channel = channel;
         this.date = date;

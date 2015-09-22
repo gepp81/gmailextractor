@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import ar.com.gep.wordcount.config.TaskService;
 import ar.com.gep.wordcount.task.Task;
 
 import com.google.api.services.gmail.Gmail;
@@ -19,7 +20,8 @@ public class GMailExtractTask extends Task {
     private Gmail gmail;
     private GMailExtractor extractor;
 
-    public GMailExtractTask() {
+    public GMailExtractTask(TaskService taskService) {
+        super(taskService);
     }
 
     @Override

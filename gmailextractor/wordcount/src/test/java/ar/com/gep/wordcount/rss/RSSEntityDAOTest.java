@@ -23,17 +23,17 @@ public class RSSEntityDAOTest {
     public void setUp() {
         helper.setUp();
 
-        Channel entity = new Channel();
+        ChannelEntity entity = new ChannelEntity();
         entity.setId("http://www.clarin.com/rss/politica/");
         entity.setName("Clarin - Politica");
         ofy().save().entity(entity);
 
-        entity = new Channel();
+        entity = new ChannelEntity();
         entity.setId("http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=30");
         entity.setName("La Nacion - Politica");
         ofy().save().entity(entity);
 
-        entity = new Channel();
+        entity = new ChannelEntity();
         entity.setId("http://www.pagina12.com.ar/diario/rss/ultimas_noticias.xml");
         entity.setName("Pagina 12 - Ultimas Noticias");
         ofy().save().entity(entity);

@@ -27,8 +27,6 @@ public class TaskService {
 
     public void enqueueTask(String action, Map<String, String> parameters) {
 
-        Logger.getAnonymousLogger().info(parameters.get("token"));
-
         TaskOptions options = withUrl(String.format(TASKS_URL, action.toLowerCase())).taskName(
                 action + UUID.randomUUID().toString()).method(TaskOptions.Method.POST);
 
