@@ -2,7 +2,6 @@ package ar.com.gep.wordcount.task.mr;
 
 import java.io.Serializable;
 
-import ar.com.gep.wordcount.task.mr.entity.CountWordEntity;
 import ar.com.gep.wordcount.task.mr.mapper.CountMapper;
 import ar.com.gep.wordcount.task.mr.reducer.CountReducer;
 
@@ -31,13 +30,13 @@ public class MRJobRunner<Entity, KM extends Serializable, VM extends Serializabl
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public MapReduceSpecification<Entity, String, Integer, CountWordEntity, Void> getSpec() {
+    public MapReduceSpecification<Entity, String, Integer, Entity, Void> getSpec() {
         Marshaller<String> intermediateKeyMarshaller = Marshallers.getStringMarshaller();
         Marshaller<Integer> intermediateValueMarshaller = Marshallers.getIntegerMarshaller();
 
         DatastoreInput input = new DatastoreInput(query, MAP_SHARDS);
-        MapReduceSpecification<Entity, String, Integer, CountWordEntity, Void> spec = new MapReduceSpecification.Builder(
-                input, new CountMapper(), new CountReducer(), new DatastoreOutput())
+        MapReduceSpecification<Entity, String, Integer, Entity, Void> spec = new MapReduceSpecification.Builder(input,
+                new CountMapper(), new CountReducer(), new DatastoreOutput())
                 .setKeyMarshaller(intermediateKeyMarshaller).setValueMarshaller(intermediateValueMarshaller)
                 .setNumReducers(REDUCE_SHARDS).build();
 

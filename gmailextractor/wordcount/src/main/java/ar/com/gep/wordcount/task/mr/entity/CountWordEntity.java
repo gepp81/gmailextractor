@@ -22,7 +22,7 @@ public class CountWordEntity {
     }
 
     public CountWordEntity(final String word, final Integer total, final String date) {
-        this.id = date.concat(SEPARATOR).concat(word).concat(SEPARATOR).concat(total.toString());
+        this.id = date.concat(SEPARATOR).concat(word);
         this.word = word;
         this.total = total;
         this.date = date;
@@ -60,4 +60,7 @@ public class CountWordEntity {
         this.date = date;
     }
 
+    public static String generateId(String word, String date) {
+        return date.concat(SEPARATOR).concat(word);
+    }
 }

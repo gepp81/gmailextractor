@@ -9,6 +9,8 @@ public abstract class Task {
 
     private TaskService taskService;
 
+    public static final String FORMAT_DATE = "yyyyMMdd";
+
     public static final String PARAM_ACTION = "action";
     public static final String PARAM_TODAY = "today";
 
