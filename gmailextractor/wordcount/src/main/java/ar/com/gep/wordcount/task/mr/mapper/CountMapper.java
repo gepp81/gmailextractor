@@ -16,8 +16,8 @@ public class CountMapper extends Mapper<Entity, String, Integer> {
 
     @Override
     public void map(Entity entry) {
-        String data = ((String) entry.getProperty(DATA)).replaceAll(REMOVE_CHAR, REPLACEMENT);
-        data = data.toLowerCase();
+        String data = (String) entry.getProperty(DATA);
+        data = data.toLowerCase().replaceAll(REMOVE_CHAR, REPLACEMENT);
         String[] words = data.split(SPLIT);
         if (words.length > 0) {
             for (String word : words) {

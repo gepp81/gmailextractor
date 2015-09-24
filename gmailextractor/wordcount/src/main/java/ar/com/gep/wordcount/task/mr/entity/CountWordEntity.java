@@ -2,6 +2,7 @@ package ar.com.gep.wordcount.task.mr.entity;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 @Entity
 public class CountWordEntity {
@@ -11,10 +12,12 @@ public class CountWordEntity {
     @Id
     private String id;
 
+    @Index
     private String word;
 
     private Integer total;
 
+    @Index
     private String date;
 
     public CountWordEntity() {
