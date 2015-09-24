@@ -1,22 +1,22 @@
 package ar.com.gep.wordcount.task.mr.mapper;
 
-import com.google.appengine.api.datastore.Entity;
+import ar.com.gep.wordcount.rss.EntryEntity;
+
 import com.google.appengine.tools.mapreduce.KeyValue;
 import com.google.appengine.tools.mapreduce.Mapper;
 
-public class CountMapper extends Mapper<Entity, String, Integer> {
+public class CountMapper extends Mapper<EntryEntity, String, Integer> {
 
     private static final String REPLACEMENT = "";
     private static final String REMOVE_CHAR = "[-+.^:,]";
     private static final String SPLIT = " ";
-    private static final String DATA = "data";
     private static final Integer ONE = 1;
 
     private static final long serialVersionUID = 7325377330311811198L;
 
     @Override
-    public void map(Entity entry) {
-        String data = (String) entry.getProperty(DATA);
+    public void map(EntryEntity entry) {
+        String data = entry.getData();
         data = data.toLowerCase().replaceAll(REMOVE_CHAR, REPLACEMENT);
         String[] words = data.split(SPLIT);
         if (words.length > 0) {

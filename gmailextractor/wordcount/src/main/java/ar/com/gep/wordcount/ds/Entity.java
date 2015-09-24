@@ -2,6 +2,8 @@ package ar.com.gep.wordcount.ds;
 
 public interface Entity {
 
+    public String getId();
+    
     public static final String DATE = "date";
 
     public static final String ENTRY_ENTITY = "EntryEntity";
