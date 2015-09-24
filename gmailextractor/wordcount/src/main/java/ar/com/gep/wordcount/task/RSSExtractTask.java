@@ -21,7 +21,6 @@ import com.google.appengine.api.datastore.QueryResultList;
 import com.google.apphosting.api.ApiProxy;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
@@ -64,24 +63,22 @@ public class RSSExtractTask extends Task {
             }
 
             SyndFeed feed = input.build(new XmlReader(conn));
+            EntryEntity entity;
+            String data;
             for (SyndEntry entry : feed.getEntries()) {
-
-                String data = entry.getDescription().getValue().replaceAll("<.*?>", "");
+                data = entry.getDescription().getValue().replaceAll("<.*?>", "");
                 data = StringEscapeUtils.unescapeHtml4(data);
-                
-                EntryEntity entity = new EntryEntity(arguments.get(PARAM_TODAY), channel.getName(), entry.getTitle(), data);
-
-                ofy().save().entity(entity);
-
+                if (!data.isEmpty()) {
+                    entity = new EntryEntity(arguments.get(PARAM_TODAY), channel.getName(), entry.getTitle(), data);
+                    ofy().save().entity(entity);
+                }
             }
 
-        } catch (IllegalArgumentException | FeedException e) {
-            Logger.getAnonymousLogger().severe("Dont get data from: " + channel.getId());
         } catch (Exception e) {
+            Logger.getAnonymousLogger().severe("Dont get data from: " + channel.getId());
             ChannelError error = new ChannelError(channel, arguments.get(PARAM_TODAY));
             ofy().save().entity(error).now();
         }
-
     }
 
     private ChannelEntity getChannel(QueryResultList<Entity> query) {

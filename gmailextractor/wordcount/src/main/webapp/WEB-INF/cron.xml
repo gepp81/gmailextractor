@@ -9,13 +9,13 @@
 	<cron>
 		<url>/crons?action=cleaner</url>
 		<description>Limpi el codigo HTML</description>
-		<schedule>every monday 12:00</schedule>
+		<schedule>every day 14:00</schedule>
 		<timezone>America/Argentina/Buenos_Aires</timezone>
 	</cron>
 	<cron>
 		<url>/crons?action=countwords</url>
 		<description>Cuentas palabras del da anterior</description>
-		<schedule>every day 17:00</schedule>
+		<schedule>every day 18:00</schedule>
 		<timezone>America/Argentina/Buenos_Aires</timezone>
 	</cron>	
 </cronentries>

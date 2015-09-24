@@ -7,8 +7,6 @@ import com.google.appengine.tools.mapreduce.Mapper;
 
 public class CountMapper extends Mapper<EntryEntity, String, Integer> {
 
-    private static final String REPLACEMENT = "";
-    private static final String REMOVE_CHAR = "[-+.^:,]";
     private static final String SPLIT = " ";
     private static final Integer ONE = 1;
 
@@ -16,9 +14,7 @@ public class CountMapper extends Mapper<EntryEntity, String, Integer> {
 
     @Override
     public void map(EntryEntity entry) {
-        String data = entry.getData();
-        data = data.toLowerCase().replaceAll(REMOVE_CHAR, REPLACEMENT);
-        String[] words = data.split(SPLIT);
+        String[] words = entry.getData().split(SPLIT);
         if (words.length > 0) {
             for (String word : words) {
                 getContext().emit(new KeyValue<String, Integer>(word, ONE));

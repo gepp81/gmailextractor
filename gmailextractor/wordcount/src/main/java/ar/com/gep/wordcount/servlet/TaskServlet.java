@@ -36,10 +36,12 @@ public class TaskServlet extends HttpServlet {
                 task.run(buildParameters(req));
                 resp.setStatus(HttpServletResponse.SC_OK);
             } else {
+                LOGGER.info("Could not find and execute a task");
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Could not find and execute a task");
             }
         } catch (IllegalArgumentException e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unknown route to task with entiy");
+            LOGGER.info(e.getMessage());
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
